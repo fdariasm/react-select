@@ -86,17 +86,24 @@ export const makeCreatableSelect = (SelectComponent: ComponentType<*>) =>
       };
     }
 
-    static getNewOption(props: Props) {
+    static isValidNewOption(props: Props) {
       const {
-        formatCreateLabel,
-        getNewOptionData,
         inputValue,
         isValidNewOption,
         value,
         options,
       } = props;
+      return isValidNewOption(inputValue, cleanValue(value), options || []);
+    }
 
-      if (isValidNewOption(inputValue, cleanValue(value), options || [])) {
+    static getNewOption(props: Props) {
+      const {
+        formatCreateLabel,
+        getNewOptionData,
+        inputValue,
+      } = props;
+
+      if (Creatable.isValidNewOption(props)) {
         return getNewOptionData(inputValue, formatCreateLabel(inputValue));
       } else {
         return undefined;
@@ -118,8 +125,25 @@ export const makeCreatableSelect = (SelectComponent: ComponentType<*>) =>
     }
 
     componentWillReceiveProps(nextProps: Props) {
-      const newOption = Creatable.getNewOption(nextProps);
-      const options = Creatable.getFullOptions(nextProps, newOption);
+      let { newOption } = this.state;
+      if (
+        // this code BREAKS (does not re-render) if formatCreateLabel or getNewOptionData are changed
+        Creatable.isValidNewOption(this.props) !== Creatable.isValidNewOption(this.props) ||
+        nextProps.inputValue !== this.props.inputValue
+      ) {
+        newOption = Creatable.getNewOption(nextProps);
+      }
+
+      let { options } = this.state;
+      if (
+        newOption !== this.state.newOption ||
+        nextProps.allowCreateWhileLoading !== this.props.allowCreateWhileLoading ||
+        nextProps.createOptionPosition !== this.props.createOptionPosition ||
+        nextProps.isLoading !== this.props.isLoading ||
+        nextProps.options !== this.props.options
+      ) {
+        options = Creatable.getFullOptions(nextProps, newOption);
+      }
 
       this.setState({
         newOption,
