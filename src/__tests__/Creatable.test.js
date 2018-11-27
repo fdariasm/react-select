@@ -104,6 +104,15 @@ cases('isValidNewOption() prop',
   }
 );
 
+// TODO: test coverage for commented Select.js code for creatable test where isValidNewOption('')
+cases('isValidNewOption() for empty inputValue',
+  ({ props = { options: OPTIONS } }) => {
+    let isValidNewOption = jest.fn(options => options === '');
+
+
+  }),
+)
+
 cases('close by hitting escape with search text present',
   ({ props = { options: OPTIONS } }) => {
     const creatableSelectWrapper = mount(<Creatable menuIsOpen {...props} />);
