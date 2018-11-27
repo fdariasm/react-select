@@ -79,10 +79,10 @@ export const makeCreatableSelect = (SelectComponent: ComponentType<*>) =>
     select: ElementRef<*>;
     constructor(props: Props) {
       super(props);
-      const options = props.options || [];
+      const newOption = Creatable.getNewOption(props);
       this.state = {
-        newOption: undefined,
-        options: options,
+        newOption,
+        options: Creatable.getFullOptions(props, newOption),
       };
     }
 
@@ -118,7 +118,6 @@ export const makeCreatableSelect = (SelectComponent: ComponentType<*>) =>
     }
 
     componentWillReceiveProps(nextProps: Props) {
-
       const newOption = Creatable.getNewOption(nextProps);
       const options = Creatable.getFullOptions(nextProps, newOption);
 
