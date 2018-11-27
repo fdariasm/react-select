@@ -483,7 +483,6 @@ export default class Select extends Component<Props, State> {
     let openAtIndex =
       focusOption === 'first' ? 0 : menuOptions.focusable.length - 1;
 
-    // TODO: Add test coverage
     if (!isMulti) {
       const selectedIndex = menuOptions.focusable.indexOf(selectValue[0]);
       if (selectedIndex > -1) {
