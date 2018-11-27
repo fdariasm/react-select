@@ -85,30 +85,46 @@ export const makeCreatableSelect = (SelectComponent: ComponentType<*>) =>
         options: options,
       };
     }
-    componentWillReceiveProps(nextProps: Props) {
+
+    static getNewOption(props: Props) {
       const {
-        allowCreateWhileLoading,
-        createOptionPosition,
         formatCreateLabel,
         getNewOptionData,
         inputValue,
-        isLoading,
         isValidNewOption,
         value,
-      } = nextProps;
-      const options = nextProps.options || [];
-      let { newOption } = this.state;
-      if (isValidNewOption(inputValue, cleanValue(value), options)) {
-        newOption = getNewOptionData(inputValue, formatCreateLabel(inputValue));
+        options,
+      } = props;
+
+      if (isValidNewOption(inputValue, cleanValue(value), options || [])) {
+        return getNewOptionData(inputValue, formatCreateLabel(inputValue));
       } else {
-        newOption = undefined;
+        return undefined;
       }
+    }
+
+    static getFullOptions(props: Props, newOption: ?OptionType) {
+      const {
+        allowCreateWhileLoading,
+        createOptionPosition,
+        isLoading,
+        options: rawOptions,
+      } = props;
+      const options = rawOptions || [];
+
+      return (allowCreateWhileLoading || !isLoading) && newOption
+        ? (createOptionPosition === 'first' ? [newOption, ...options] : [...options, newOption])
+        : options;
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+
+      const newOption = Creatable.getNewOption(nextProps);
+      const options = Creatable.getFullOptions(nextProps, newOption);
+
       this.setState({
-        newOption: newOption,
-        options:
-          (allowCreateWhileLoading || !isLoading) && newOption
-            ? (createOptionPosition === 'first' ? [newOption, ...options] : [...options, newOption])
-            : options,
+        newOption,
+        options,
       });
     }
     onChange = (newValue: ValueType, actionMeta: ActionMeta) => {
