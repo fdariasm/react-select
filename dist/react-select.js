@@ -473,11 +473,7 @@
     var overScroll = focusedEl.offsetHeight / 3;
 
     if (focusedRect.bottom + overScroll > menuRect.bottom) {
-<<<<<<< HEAD
-      scrollTo(menuEl, Math.min(focusedEl.offsetTop + focusedEl.clientHeight - menuEl.offsetHeight + overScroll, menuEl.scrollHeight));
-=======
       scrollTo(menuEl, Math.min(focusedEl.offsetTop, menuEl.scrollHeight));
->>>>>>> Fixes in scroll behaviour
     } else if (focusedRect.top - overScroll < menuRect.top) {
       scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
     }
@@ -4638,11 +4634,7 @@
   }, builtins);
 
   var makeCreatableSelect = function makeCreatableSelect(SelectComponent) {
-<<<<<<< HEAD
     var _class, _temp, _initialiseProps;
-=======
-    var _class, _temp;
->>>>>>> Fixes in scroll behaviour
 
     return _temp = _class = function (_Component) {
       inherits(Creatable, _Component);
@@ -4652,50 +4644,12 @@
 
         var _this = possibleConstructorReturn(this, (Creatable.__proto__ || Object.getPrototypeOf(Creatable)).call(this, props));
 
-<<<<<<< HEAD
         _initialiseProps.call(_this);
 
         var newOption = Creatable.getNewOption(props);
         _this.state = {
           newOption: newOption,
           options: Creatable.getFullOptions(props, newOption)
-=======
-        _this.onChange = function (newValue, actionMeta) {
-          var _this$props = _this.props,
-              getNewOptionData = _this$props.getNewOptionData,
-              inputValue = _this$props.inputValue,
-              isMulti = _this$props.isMulti,
-              onChange = _this$props.onChange,
-              onCreateOption = _this$props.onCreateOption,
-              value = _this$props.value;
-
-          if (actionMeta.action !== 'select-option') {
-            return onChange(newValue, actionMeta);
-          }
-          var newOption = _this.state.newOption;
-
-          var valueArray = Array.isArray(newValue) ? newValue : [newValue];
-
-          if (valueArray[valueArray.length - 1] === newOption) {
-            if (onCreateOption) onCreateOption(inputValue);else {
-              var newOptionData = getNewOptionData(inputValue, inputValue);
-              var newActionMeta = { action: 'create-option' };
-              if (isMulti) {
-                onChange([].concat(toConsumableArray(cleanValue(value)), [newOptionData]), newActionMeta);
-              } else {
-                onChange(newOptionData, newActionMeta);
-              }
-            }
-            return;
-          }
-          onChange(newValue, actionMeta);
-        };
-
-        var options = props.options || [];
-        _this.state = {
-          newOption: undefined,
-          options: options
->>>>>>> Fixes in scroll behaviour
         };
         return _this;
       }
@@ -4703,7 +4657,6 @@
       createClass(Creatable, [{
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-<<<<<<< HEAD
           var newOption = this.state.newOption;
 
           if (
@@ -4721,28 +4674,6 @@
           this.setState({
             newOption: newOption,
             options: options
-=======
-          var allowCreateWhileLoading = nextProps.allowCreateWhileLoading,
-              createOptionPosition = nextProps.createOptionPosition,
-              formatCreateLabel = nextProps.formatCreateLabel,
-              getNewOptionData = nextProps.getNewOptionData,
-              inputValue = nextProps.inputValue,
-              isLoading = nextProps.isLoading,
-              isValidNewOption = nextProps.isValidNewOption,
-              value = nextProps.value;
-
-          var options = nextProps.options || [];
-          var newOption = this.state.newOption;
-
-          if (isValidNewOption(inputValue, cleanValue(value), options)) {
-            newOption = getNewOptionData(inputValue, formatCreateLabel(inputValue));
-          } else {
-            newOption = undefined;
-          }
-          this.setState({
-            newOption: newOption,
-            options: (allowCreateWhileLoading || !isLoading) && newOption ? createOptionPosition === 'first' ? [newOption].concat(toConsumableArray(options)) : [].concat(toConsumableArray(options), [newOption]) : options
->>>>>>> Fixes in scroll behaviour
           });
         }
       }, {
@@ -4771,7 +4702,6 @@
             onChange: this.onChange
           }));
         }
-<<<<<<< HEAD
       }], [{
         key: 'isValidNewOption',
         value: function isValidNewOption(props) {
@@ -4844,11 +4774,6 @@
         onChange(newValue, actionMeta);
       };
     }, _temp;
-=======
-      }]);
-      return Creatable;
-    }(React.Component), _class.defaultProps = defaultProps$2, _temp;
->>>>>>> Fixes in scroll behaviour
   };
   var Creatable = manageState(makeCreatableSelect(Select));
 
