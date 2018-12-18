@@ -197,10 +197,7 @@ export function scrollIntoView(
     scrollTo(
       menuEl,
       Math.min(
-        focusedEl.offsetTop +
-          focusedEl.clientHeight -
-          menuEl.offsetHeight +
-          overScroll,
+        focusedEl.offsetTop,
         menuEl.scrollHeight
       )
     );

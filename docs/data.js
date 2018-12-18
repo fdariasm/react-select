@@ -9,6 +9,16 @@ export const colourOptions = [
   { value: 'forest', label: 'Forest', color: '#00875A' },
   { value: 'slate', label: 'Slate', color: '#253858' },
   { value: 'silver', label: 'Silver', color: '#666666' },
+  { value: 'ocean2', label: 'Ocean2', color: '#00B8D9', isFixed: true },
+  { value: 'blue2', label: 'Blue2', color: '#0052CC', disabled: true },
+  { value: 'purple2', label: 'Purple2', color: '#5243AA' },
+  { value: 'red2', label: 'Red2', color: '#FF5630', isFixed: true },
+  { value: 'orange2', label: 'Orange2', color: '#FF8B00' },
+  { value: 'yellow2', label: 'Yellow2', color: '#FFC400' },
+  { value: 'green2', label: 'Green2', color: '#36B37E' },
+  { value: 'forest2', label: 'Forest2', color: '#00875A' },
+  { value: 'slate2', label: 'Slate2', color: '#253858' },
+  { value: 'silver2', label: 'Silver2', color: '#666666' },
 ];
 
 export const flavourOptions = [
