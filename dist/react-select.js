@@ -473,7 +473,7 @@
     var overScroll = focusedEl.offsetHeight / 3;
 
     if (focusedRect.bottom + overScroll > menuRect.bottom) {
-      scrollTo(menuEl, Math.min(focusedEl.offsetTop + focusedEl.clientHeight - menuEl.offsetHeight + overScroll, menuEl.scrollHeight));
+      scrollTo(menuEl, Math.min(focusedEl.offsetTop, menuEl.scrollHeight));
     } else if (focusedRect.top - overScroll < menuRect.top) {
       scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
     }
