@@ -410,7 +410,7 @@ export default class Select extends Component<Props, State> {
     }
   }
   componentDidUpdate(prevProps: Props) {
-    const { isDisabled, menuIsOpen } = this.props;
+    const { isDisabled, menuIsOpen, creatable, isMulti } = this.props;
     const { isFocused } = this.state;
 
     if (
@@ -428,7 +428,7 @@ export default class Select extends Component<Props, State> {
       this.focusedOptionRef &&
       this.scrollToFocusedOptionOnUpdate
     ) {
-      scrollIntoView(this.menuListRef, this.focusedOptionRef);
+      scrollIntoView(this.menuListRef, this.focusedOptionRef, (creatable && !isMulti));
     }
     this.scrollToFocusedOptionOnUpdate = false;
   }

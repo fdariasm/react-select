@@ -197,6 +197,7 @@ export const makeCreatableSelect = (SelectComponent: ComponentType<*>) =>
           }}
           options={options}
           onChange={this.onChange}
+          creatable
         />
       );
     }

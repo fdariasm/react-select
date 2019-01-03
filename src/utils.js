@@ -187,22 +187,24 @@ export function animatedScrollTo(
 
 export function scrollIntoView(
   menuEl: HTMLElement,
-  focusedEl: HTMLElement
+  focusedEl: HTMLElement,
+  offsetHeight,
 ): void {
   const menuRect = menuEl.getBoundingClientRect();
   const focusedRect = focusedEl.getBoundingClientRect();
   const overScroll = focusedEl.offsetHeight / 3;
+  const offsetTop = offsetHeight ? focusedEl.offsetTop - focusedEl.offsetHeight : focusedEl.offsetTop;
 
   if (focusedRect.bottom + overScroll > menuRect.bottom) {
     scrollTo(
       menuEl,
       Math.min(
-        focusedEl.offsetTop,
+        offsetTop,
         menuEl.scrollHeight
       )
     );
   } else if (focusedRect.top - overScroll < menuRect.top) {
-    scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
+    scrollTo(menuEl, Math.max(offsetTop - overScroll, 0));
   }
 }
 
