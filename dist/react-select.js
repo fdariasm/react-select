@@ -467,15 +467,16 @@
   // Scroll Into View
   // ------------------------------
 
-  function scrollIntoView(menuEl, focusedEl) {
+  function scrollIntoView(menuEl, focusedEl, offsetHeight) {
     var menuRect = menuEl.getBoundingClientRect();
     var focusedRect = focusedEl.getBoundingClientRect();
     var overScroll = focusedEl.offsetHeight / 3;
+    var offsetTop = offsetHeight ? focusedEl.offsetTop - focusedEl.offsetHeight : focusedEl.offsetTop;
 
     if (focusedRect.bottom + overScroll > menuRect.bottom) {
-      scrollTo(menuEl, Math.min(focusedEl.offsetTop, menuEl.scrollHeight));
+      scrollTo(menuEl, Math.min(offsetTop, menuEl.scrollHeight));
     } else if (focusedRect.top - overScroll < menuRect.top) {
-      scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
+      scrollTo(menuEl, Math.max(offsetTop - overScroll, 0));
     }
   }
 
@@ -2709,7 +2710,9 @@
       value: function componentDidUpdate(prevProps) {
         var _props2 = this.props,
             isDisabled = _props2.isDisabled,
-            menuIsOpen = _props2.menuIsOpen;
+            menuIsOpen = _props2.menuIsOpen,
+            creatable = _props2.creatable,
+            isMulti = _props2.isMulti;
         var isFocused = this.state.isFocused;
 
 
@@ -2723,7 +2726,7 @@
 
         // scroll the focused option into view if necessary
         if (this.menuListRef && this.focusedOptionRef && this.scrollToFocusedOptionOnUpdate) {
-          scrollIntoView(this.menuListRef, this.focusedOptionRef);
+          scrollIntoView(this.menuListRef, this.focusedOptionRef, creatable && !isMulti);
         }
         this.scrollToFocusedOptionOnUpdate = false;
       }
@@ -4699,7 +4702,8 @@
               _this2.select = _ref;
             },
             options: options,
-            onChange: this.onChange
+            onChange: this.onChange,
+            creatable: true
           }));
         }
       }], [{
