@@ -193,7 +193,9 @@ export function scrollIntoView(
   const focusedRect = focusedEl.getBoundingClientRect();
   const overScroll = focusedEl.offsetHeight / 3;
 
-  if (focusedRect.bottom + overScroll > menuRect.bottom) {
+  if (focusedRect.top - overScroll < menuRect.top) {
+    scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
+  } else {
     scrollTo(
       menuEl,
       Math.min(
@@ -201,8 +203,6 @@ export function scrollIntoView(
         menuEl.scrollHeight
       )
     );
-  } else if (focusedRect.top - overScroll < menuRect.top) {
-    scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
   }
 }
 
