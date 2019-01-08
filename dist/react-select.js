@@ -4155,9 +4155,6 @@
           isSearchable = _props18.isSearchable,
           isMulti = _props18.isMulti;
 
-      if (_this7.props.onFocus) {
-        _this7.props.onFocus(event);
-      }
       _this7.inputIsHiddenAfterUpdate = false;
       _this7.announceAriaLiveContext({
         event: 'input',
@@ -4170,6 +4167,9 @@
         _this7.openMenu('first');
       }
       _this7.openAfterFocus = false;
+      if (_this7.props.onFocus) {
+        _this7.props.onFocus(event);
+      }
     };
 
     this.onInputBlur = function (event) {
