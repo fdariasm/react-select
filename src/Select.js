@@ -1045,9 +1045,6 @@ export default class Select extends Component<Props, State> {
   };
   onInputFocus = (event: SyntheticFocusEvent<HTMLInputElement>) => {
     const { isSearchable, isMulti } = this.props;
-    if (this.props.onFocus) {
-      this.props.onFocus(event);
-    }
     this.inputIsHiddenAfterUpdate = false;
     this.announceAriaLiveContext({
       event: 'input',
@@ -1060,6 +1057,9 @@ export default class Select extends Component<Props, State> {
       this.openMenu('first');
     }
     this.openAfterFocus = false;
+    if (this.props.onFocus) {
+      this.props.onFocus(event);
+    }
   };
   onInputBlur = (event: SyntheticFocusEvent<HTMLInputElement>) => {
     if(this.menuListRef && this.menuListRef.contains(document.activeElement)) {
